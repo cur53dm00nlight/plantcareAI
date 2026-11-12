@@ -1,6 +1,6 @@
 streamlit==1.67.0
 numpy==2.4.6
-opencv-python
+opencv-python-headless
 pillow
 timm==1.0.31
 huggingface_hub
