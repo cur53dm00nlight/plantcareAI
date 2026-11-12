@@ -3,3 +3,4 @@ numpy==2.4.6
 opencv-python
 pillow
 timm==1.0.31
+huggingface_hub
