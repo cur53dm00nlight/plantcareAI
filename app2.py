@@ -639,43 +639,6 @@ def make_weather_advisories(current, daily):
         tips.append(("General conditions", "Continue routine field monitoring and make irrigation decisions using soil moisture and crop requirements."))
 
     return tips
-
-# --------------------------------------------------
-# AGRICULTURAL MARKET PRICE FUNCTIONS
-# --------------------------------------------------
-
-@st.cache_data(ttl=900, show_spinner=False)
-def fetch_market_prices(state, commodity, api_key):
-
-    resource_id = "9ef84268-d588-465a-a308-a864a43d0070"
-
-    params = {
-        "api-key": api_key,
-        "format": "json",
-        "limit": 100,
-        "filters[state.keyword]": state,
-        "filters[commodity]": commodity
-    }
-
-    url = (
-        f"https://api.data.gov.in/resource/{resource_id}?"
-        f"{urlencode(params)}"
-    )
-
-    request = Request(
-        url,
-        headers={"User-Agent": "PlantCareAI/1.0"}
-    )
-
-    try:
-        with urlopen(request, timeout=20) as response:
-            payload = json.loads(response.read().decode("utf-8"))
-
-        return payload.get("records", [])
-
-    except Exception as e:
-        st.error(f"Could not fetch market prices: {e}")
-        return []
 # --------------------------------------------------
 # AGRICULTURAL MARKET PRICE FUNCTIONS
 # --------------------------------------------------
